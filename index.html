@@ -1,0 +1,186 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYZ AI — Human-Like School Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <script src="avtar.js" defer></script>
+    <script src="voice.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="brand">
+            <div class="brand-logo">XYZ</div>
+            <div class="brand-text">
+                <h1>XYZ AI School Assistant</h1>
+                <p>Applied AI Solution • Standalone School ERP Ecosystem</p>
+            </div>
+        </div>
+        <div class="header-controls">
+            <label for="languageSelect" style="font-size: 0.85rem; color: var(--text-muted);">🌐 Language:</label>
+            <select id="languageSelect">
+                <option value="English">English</option>
+                <option value="Hindi">Hindi (हिंदी)</option>
+                <option value="Tamil">Tamil (தமிழ்)</option>
+                <option value="Telugu">Telugu (తెలుగు)</option>
+                <option value="Marathi">Marathi (मराठी)</option>
+                <option value="Bengali">Bengali (বাংলা)</option>
+                <option value="Gujarati">Gujarati (ગુજરાતી)</option>
+                <option value="Punjabi">Punjabi (ਪੰਜਾਬੀ)</option>
+                <option value="Kannada">Kannada (ಕನ್ನಡ)</option>
+                <option value="Malayalam">Malayalam (മലയാളം)</option>
+                <option value="Urdu">Urdu (اردو)</option>
+            </select>
+        </div>
+    </header>
+
+
+    <!-- Main Workspace Layout -->
+    <main class="app-container">
+
+        <!-- Left Panel: Role Switcher & Persona Specs -->
+        <aside class="card">
+            <div class="role-section">
+                <h3>Select Active Role</h3>
+                <div class="role-grid">
+                    <button class="role-btn active" data-role="Student" onclick="window.location.href='index1.html'">
+                        <span class="role-icon">🎓</span>
+                        <span>Student</span>
+                    </button>
+                    <button class="role-btn" data-role="Parents" onclick="window.location.href='index2.html'">
+                        <span class="role-icon">👨‍👩‍👧</span>
+                        <span>Parent</span>
+                    </button>
+                    <button class="role-btn" data-role="Teacher" onclick="window.location.href='index4.html'">
+                        <span class="role-icon">👩‍🏫</span>
+                        <span>Teacher</span>
+                    </button>
+                    <button class="role-btn" data-role="Principal" onclick="window.location.href='index3.html'">
+                        <span class="role-icon">🏛️</span>
+                        <span>Principal</span>
+                    </button>
+                    <button class="role-btn" data-role="Admin" onclick="window.location.href='index5.html'">
+                        <span class="role-icon">🛠️</span>
+                        <span>Admin</span>
+                </div>
+            </div>
+
+            <!-- Active Persona Details -->
+            <div class="persona-info">
+                <div id="personaTitle" class="persona-title">Friendly Academic Assistant</div>
+                <div id="personaTone" class="persona-tone">Tone: Warm, encouraging, supportive</div>
+                <div id="personaGreeting" style="font-size: 0.78rem; margin-top: 0.5rem; opacity:0.85"></div>
+            </div>
+
+            <!-- Quick Action Prompts -->
+            <div class="role-section" style="margin-top: 0.5rem;">
+                <h3>Suggested Use Cases</h3>
+                <div class="quick-prompts" id="quickPromptsContainer">
+                    <!-- Dynamic suggestion chips populated via JS -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Panel: Chat Interface -->
+        <section class="card chat-card">
+            <div class="chat-header">
+                <div class="chat-header-title">💬 Interactive Conversation</div>
+                <div style="font-size:0.75rem; color:var(--text-muted)">Context-Aware Engine</div>
+            </div>
+
+            <!-- Chat Stream -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-avatar">🤖</div>
+                    <div>
+                        <div class="message-bubble">
+                            Welcome to <strong>XYZ AI</strong>! I am your human-like AI school assistant. Ask me about attendance, academic updates, or request to connect with staff.
+                        </div>
+                        <div class="message-meta">XYZ Assistant • Just now</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="chat-input-area">
+                <button class="btn-voice" id="voiceBtn" title="Speak to XYZ AI (Voice Input & STT)">
+                    🎙️
+                </button>
+                <input type="text" id="chatInput" class="chat-input" placeholder="Type your query or click mic to speak..." autocomplete="off">
+                <button class="btn-send" id="sendBtn" title="Send Message">
+                    ➔
+                </button>
+            </div>
+        </section>
+
+        <!-- Right Panel: AI Avatar & Security Monitor -->
+        <aside class="card">
+            <!-- Animated 2D Canvas AI Avatar -->
+            <div class="avatar-container">
+                <canvas id="avatarCanvas" width="280" height="280"></canvas>
+            </div>
+
+            <!-- Security & Safety Monitor -->
+            <div class="security-section">
+                <h4>
+                    <span>🛡️ Security Guardrails</span>
+                    <span class="badge badge-green">Layer 7 Active</span>
+                </h4>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.5rem">
+                    Enforces tool-layer RBAC, sanitizes injection attempts, and masks credentials.
+                </p>
+                <div class="security-log-box" id="securityLogs">
+                    <div class="security-log-item AUTHORIZED">
+                        <div><strong>[System]</strong> Security Guard Engine initialized</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Mock Call Modal -->
+    <div id="callModal" class="call-modal" style="display: none;">
+        <div class="call-box">
+
+            <div class="call-avatar" id="callAvatar">P</div>
+
+            <h2 id="callName">Principal</h2>
+            <p id="callRole">Principal</p>
+
+            <div class="call-status" id="callStatus">
+                Calling...
+            </div>
+
+            <div class="call-timer" id="callTimer">
+                00:00
+            </div>
+
+            <div class="call-buttons">
+                <button class="call-action">
+                    🎤
+                    <span>Mute</span>
+                </button>
+
+                <button class="call-action">
+                    🔊
+                    <span>Speaker</span>
+                </button>
+
+                <button class="end-call" onclick="endMockCall()">
+                    📞
+                    <span>End</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
