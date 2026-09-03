@@ -1,25 +1,478 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Parent Portal — School ERP Ecosystem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Parent Portal</title>
+
     <style>
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; color: white; margin: 0; padding: 20px; }
-        header { border-bottom: 2px solid #334155; padding-bottom: 15px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; }
-        .badge { background: #059669; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
-        iframe { width: 100%; height: 750px; border: 1px solid #334155; border-radius: 12px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* HEADER */
+        header {
+            background: #1565c0;
+            color: white;
+            padding: 28px 45px;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        /* WELCOME CARD */
+        .welcome {
+            background: white;
+            padding: 28px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        /* CARDS */
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.12);
+        }
+
+        .icon {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        /* BUTTON */
+        .btn {
+            display: inline-block;
+            background: #1565c0;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #0d47a1;
+        }
+
+        /* CHILD SUMMARY */
+        .child-summary {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-top: 25px;
+        }
+
+        .child-summary h2 {
+            margin-bottom: 18px;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .detail-box {
+            background: #f4f7fb;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .detail-box span {
+            display: block;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .detail-box strong {
+            font-size: 17px;
+        }
+
+        /* ATTENDANCE */
+        .attendance {
+            margin-top: 15px;
+        }
+
+        .attendance-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 12px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 87%;
+            height: 100%;
+            background: #2e7d32;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 30px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+
+            header {
+                padding: 23px;
+            }
+
+            header h1 {
+                font-size: 26px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome {
+                padding: 22px;
+            }
+
+            .card {
+                padding: 22px;
+            }
+        }
     </style>
 </head>
+
 <body>
+
+    <!-- HEADER -->
     <header>
-        <div>
-            <h2>👨‍👩‍👧 Parent ERP Portal</h2>
-            <p style="color:#94a3b8; font-size:0.85rem">Parent Dashboard • Mr. Rajesh Sharma (Parent of Rahul Sharma)</p>
-        </div>
-        <span class="badge">Role: Parent</span>
+        <h1>👨‍👩‍👧 Parent Portal</h1>
+        <p>Parent Dashboard • Rahul Sharma • Class 10-A</p>
     </header>
+
+
+    <!-- MAIN -->
+    <div class="container">
+
+        <!-- WELCOME -->
+        <section class="welcome">
+            <h2>Welcome, Parent 👋</h2>
+
+            <p>
+                Welcome to the parent dashboard.
+                Here you can monitor your child's attendance,
+                assignments, examination results, fees and school updates.
+            </p>
+        </section>
+
+
+        <!-- CARDS -->
+        <section class="grid">
+
+            <!-- CHILD PROFILE -->
+            <div class="card">
+                <div class="icon">👨‍🎓</div>
+
+                <h3>Child Profile</h3>
+
+                <p>
+                    View your child's personal information,
+                    class details and academic information.
+                </p>
+
+                <button class="btn" onclick="viewProfile()">
+                    View Profile
+                </button>
+            </div>
+
+
+            <!-- ATTENDANCE -->
+            <div class="card">
+                <div class="icon">📅</div>
+
+                <h3>Attendance</h3>
+
+                <p>
+                    Check your child's attendance records
+                    and attendance percentage.
+                </p>
+
+                <button class="btn" onclick="viewAttendance()">
+                    View Attendance
+                </button>
+            </div>
+
+
+            <!-- ASSIGNMENTS -->
+            <div class="card">
+                <div class="icon">📚</div>
+
+                <h3>Assignments</h3>
+
+                <p>
+                    View pending assignments, submitted work
+                    and assignment deadlines.
+                </p>
+
+                <button class="btn" onclick="viewAssignments()">
+                    View Assignments
+                </button>
+            </div>
+
+
+            <!-- RESULTS -->
+            <div class="card">
+                <div class="icon">📊</div>
+
+                <h3>Results</h3>
+
+                <p>
+                    Check examination marks, grades
+                    and academic performance.
+                </p>
+
+                <button class="btn" onclick="viewResults()">
+                    View Results
+                </button>
+            </div>
+
+
+            <!-- FEES -->
+            <div class="card">
+                <div class="icon">💳</div>
+
+                <h3>Fees</h3>
+
+                <p>
+                    View fee details, payment history
+                    and pending school fees.
+                </p>
+
+                <button class="btn" onclick="viewFees()">
+                    View Fees
+                </button>
+            </div>
+
+
+            <!-- NOTICES -->
+            <div class="card">
+                <div class="icon">📢</div>
+
+                <h3>School Notices</h3>
+
+                <p>
+                    Stay updated with important school
+                    announcements and notices.
+                </p>
+
+                <button class="btn" onclick="viewNotices()">
+                    View Notices
+                </button>
+            </div>
+
+
+            <!-- TEACHER COMMUNICATION -->
+            <div class="card">
+                <div class="icon">👩‍🏫</div>
+
+                <h3>Teacher Communication</h3>
+
+                <p>
+                    Communicate with teachers regarding
+                    your child's academic progress.
+                </p>
+
+                <button class="btn" onclick="contactTeacher()">
+                    Contact Teacher
+                </button>
+            </div>
+
+
+            <!-- AI ASSISTANT -->
+            <div class="card">
+                <div class="icon">🤖</div>
+
+                <h3>AI Assistant</h3>
+
+                <p>
+                    Ask questions about your child's studies,
+                    school and academic performance.
+                </p>
+
+                <button class="btn" onclick="askAI()">
+                    Ask AI
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- CHILD OVERVIEW -->
+        <section class="child-summary">
+
+            <h2>📋 Child Overview</h2>
+
+            <div class="details">
+
+                <div class="detail-box">
+                    <span>Student Name</span>
+                    <strong>Rahul Sharma</strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Class</span>
+                    <strong>10-A</strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Roll Number</span>
+                    <strong>24</strong>
+                </div>
+
+            </div>
+
+
+            <!-- ATTENDANCE -->
+            <div class="attendance">
+
+                <div class="attendance-text">
+                    <span>Current Attendance</span>
+                    <strong>87%</strong>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 XYZ AI School ERP
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        function viewProfile() {
+            alert("Opening Child Profile...");
+        }
+
+        function viewAttendance() {
+            alert("Opening Attendance Records...");
+        }
+
+        function viewAssignments() {
+            alert("Opening Assignments...");
+        }
+
+        function viewResults() {
+            alert("Opening Examination Results...");
+        }
+
+        function viewFees() {
+            alert("Opening Fee Details...");
+        }
+
+        function viewNotices() {
+            alert("Opening School Notices...");
+        }
+
+        function contactTeacher() {
+            alert("Opening Teacher Communication...");
+        }
+
+        function askAI() {
+            alert("Opening AI Assistant...");
+        }   
+
+        </script>
+
 </body>
 </html>
-
-
