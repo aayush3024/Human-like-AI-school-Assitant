@@ -1,0 +1,773 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Portal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #0b1120;
+    color: #fff;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: #111827;
+    border-right: 1px solid #263244;
+    padding: 25px 15px;
+    z-index: 10;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo h2 {
+    color: #60a5fa;
+    font-size: 24px;
+}
+
+.logo p {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    margin: 8px 0;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    text-decoration: none;
+    color: #cbd5e1;
+    padding: 13px 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: #1d4ed8;
+    color: white;
+}
+
+.icon {
+    width: 22px;
+    text-align: center;
+}
+
+.logout {
+    position: absolute;
+    bottom: 25px;
+    left: 15px;
+    right: 15px;
+}
+
+.logout a {
+    background: #7f1d1d !important;
+}
+
+/* MAIN */
+.main {
+    margin-left: 250px;
+    padding: 25px;
+}
+
+/* TOPBAR */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.welcome h1 {
+    font-size: 28px;
+}
+
+.welcome p {
+    color: #94a3b8;
+    margin-top: 6px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #111827;
+    padding: 10px 15px;
+    border-radius: 12px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* SEARCH */
+.search-box {
+    margin-bottom: 25px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #111827;
+    color: white;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #3b82f6;
+}
+
+/* STAT CARDS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: #111827;
+    border: 1px solid #263244;
+    border-radius: 14px;
+    padding: 22px;
+}
+
+.card .title {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.card h2 {
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.card .change {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #4ade80;
+}
+
+/* CONTENT GRID */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.section {
+    background: #111827;
+    border: 1px solid #263244;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.section-header h3 {
+    font-size: 18px;
+}
+
+.view {
+    color: #60a5fa;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px 10px;
+    text-align: left;
+    border-bottom: 1px solid #263244;
+    font-size: 13px;
+}
+
+th {
+    color: #94a3b8;
+    font-weight: normal;
+}
+
+.status {
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+.active-status {
+    background: #064e3b;
+    color: #6ee7b7;
+}
+
+.pending-status {
+    background: #713f12;
+    color: #fde68a;
+}
+
+/* QUICK ACTIONS */
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.action {
+    background: #172033;
+    padding: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.action:hover {
+    background: #1e3a8a;
+}
+
+.action-icon {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.action h4 {
+    font-size: 14px;
+}
+
+.action p {
+    color: #94a3b8;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+/* NOTICE */
+.notice {
+    padding: 13px 0;
+    border-bottom: 1px solid #263244;
+}
+
+.notice:last-child {
+    border-bottom: none;
+}
+
+.notice h4 {
+    font-size: 13px;
+}
+
+.notice p {
+    color: #94a3b8;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        width: 70px;
+        padding: 15px 8px;
+    }
+
+    .logo h2 {
+        font-size: 16px;
+    }
+
+    .logo p,
+    .menu span {
+        display: none;
+    }
+
+    .menu a {
+        justify-content: center;
+        padding: 13px 5px;
+    }
+
+    .logout {
+        left: 8px;
+        right: 8px;
+    }
+
+    .main {
+        margin-left: 70px;
+        padding: 15px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        align-items: flex-start;
+    }
+
+    .profile {
+        padding: 7px;
+    }
+
+    .profile div:not(.avatar) {
+        display: none;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+    .section {
+        overflow-x: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="logo">
+        <h2>ADMIN</h2>
+        <p>School Management System</p>
+    </div>
+
+    <ul class="menu">
+
+        <li>
+            <a href="#" class="active">
+                <div class="icon">🏠</div>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="icon">🎓</div>
+                <span>Students</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="icon">👨‍🏫</div>
+                <span>Teachers</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="icon">👨‍👩‍👧</div>
+                <span>Parents</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="icon">📅</div>
+                <span>Attendance</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="icon">💰</div>
+                <span>Fees</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="icon">📢</div>
+                <span>Notices</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="icon">📊</div>
+                <span>Reports</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <div class="icon">⚙️</div>
+                <span>Settings</span>
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="logout">
+        <a href="#" class="menu a">
+            <div class="icon">🚪</div>
+            <span>Logout</span>
+        </a>
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+
+        <div class="welcome">
+            <h1>Admin Dashboard 👋</h1>
+            <p>Manage your school from one place.</p>
+        </div>
+
+        <div class="profile">
+            <div class="avatar">A</div>
+            <div>
+                <strong>Administrator</strong>
+                <p style="color:#94a3b8;font-size:11px;">
+                    Super Admin
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <input
+            type="text"
+            placeholder="Search students, teachers, parents..."
+            id="searchInput"
+            onkeyup="searchTable()"
+        >
+    </div>
+
+
+    <!-- STATISTICS -->
+    <div class="stats">
+
+        <div class="card">
+            <div class="title">Total Students</div>
+            <h2>1,248</h2>
+            <div class="change">↑ 8.2% this year</div>
+        </div>
+
+        <div class="card">
+            <div class="title">Total Teachers</div>
+            <h2>86</h2>
+            <div class="change">↑ 4 new this year</div>
+        </div>
+
+        <div class="card">
+            <div class="title">Parents Registered</div>
+            <h2>1,096</h2>
+            <div class="change">↑ 6.4% this year</div>
+        </div>
+
+        <div class="card">
+            <div class="title">Attendance Today</div>
+            <h2>94.6%</h2>
+            <div class="change">↑ 2.1% from yesterday</div>
+        </div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+    <div class="content-grid">
+
+        <div>
+
+            <!-- RECENT STUDENTS -->
+            <div class="section">
+
+                <div class="section-header">
+                    <h3>Recent Student Registrations</h3>
+                    <span class="view">View All →</span>
+                </div>
+
+                <table id="studentTable">
+
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Class</th>
+                            <th>Admission No.</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Rahul Sharma</td>
+                            <td>10-A</td>
+                            <td>ADM1024</td>
+                            <td>
+                                <span class="status active-status">
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Ananya Singh</td>
+                            <td>9-B</td>
+                            <td>ADM1025</td>
+                            <td>
+                                <span class="status active-status">
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Arjun Verma</td>
+                            <td>12-A</td>
+                            <td>ADM1026</td>
+                            <td>
+                                <span class="status pending-status">
+                                    Pending
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Priya Gupta</td>
+                            <td>8-C</td>
+                            <td>ADM1027</td>
+                            <td>
+                                <span class="status active-status">
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+            <div class="section">
+
+                <div class="section-header">
+                    <h3>Quick Actions</h3>
+                </div>
+
+                <div class="actions">
+
+                    <div class="action" onclick="addStudent()">
+                        <div class="action-icon">➕</div>
+                        <h4>Add Student</h4>
+                        <p>Register a new student</p>
+                    </div>
+
+                    <div class="action" onclick="addTeacher()">
+                        <div class="action-icon">👨‍🏫</div>
+                        <h4>Add Teacher</h4>
+                        <p>Create teacher account</p>
+                    </div>
+
+                    <div class="action" onclick="notice()">
+                        <div class="action-icon">📢</div>
+                        <h4>Publish Notice</h4>
+                        <p>Send announcement</p>
+                    </div>
+
+                    <div class="action" onclick="report()">
+                        <div class="action-icon">📊</div>
+                        <h4>Generate Report</h4>
+                        <p>View school statistics</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div>
+
+            <!-- SYSTEM OVERVIEW -->
+            <div class="section">
+
+                <div class="section-header">
+                    <h3>System Overview</h3>
+                </div>
+
+                <div class="notice">
+                    <h4>🟢 System Status</h4>
+                    <p>All systems operational</p>
+                </div>
+
+                <div class="notice">
+                    <h4>👥 Active Users</h4>
+                    <p>1,487 users online</p>
+                </div>
+
+                <div class="notice">
+                    <h4>📚 Classes</h4>
+                    <p>42 active classes</p>
+                </div>
+
+                <div class="notice">
+                    <h4>💰 Fee Collection</h4>
+                    <p>82% collected this term</p>
+                </div>
+
+            </div>
+
+
+            <!-- RECENT NOTICES -->
+            <div class="section">
+
+                <div class="section-header">
+                    <h3>Recent Notices</h3>
+                    <span class="view">View All →</span>
+                </div>
+
+                <div class="notice">
+                    <h4>📢 Annual Sports Day</h4>
+                    <p>Sports Day will be held next month.</p>
+                </div>
+
+                <div class="notice">
+                    <h4>📢 Fee Reminder</h4>
+                    <p>Parents are requested to clear pending fees.</p>
+                </div>
+
+                <div class="notice">
+                    <h4>📢 Examination Schedule</h4>
+                    <p>Semester examination timetable published.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* SEARCH STUDENTS */
+function searchTable() {
+
+    let input =
+        document.getElementById("searchInput")
+        .value.toLowerCase();
+
+    let rows =
+        document
+        .getElementById("studentTable")
+        .getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+
+        let text =
+            rows[i].innerText.toLowerCase();
+
+        rows[i].style.display =
+            text.includes(input) ? "" : "none";
+    }
+}
+
+
+/* QUICK ACTIONS */
+
+function addStudent() {
+    alert("Add Student module will open here.");
+}
+
+function addTeacher() {
+    alert("Add Teacher module will open here.");
+}
+
+function notice() {
+    alert("Notice publishing module will open here.");
+}
+
+function report() {
+    alert("Reports module will open here.");
+}
+
+
+/* SIDEBAR MENU */
+
+document.querySelectorAll(".menu a").forEach(function(item) {
+
+    item.addEventListener("click", function() {
+
+        document.querySelectorAll(".menu a")
+        .forEach(function(link) {
+            link.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
